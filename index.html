@@ -1,77 +1,311 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>Revenue Share Calculator</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #fff;
+            color: #000;
+        }
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
 
-<div style="text-align: center; padding: 20px;">
-   <div id="calculatorContainer">
-       <input type="number" id="userInput" placeholder="Enter the number of new users" style="width: 300px; height: 50px; font-size: 18px; border: 2px solid #000; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
-       <br>
-       <button id="calculateButton" style="width: 150px; height: 50px; font-size: 18px; background-color: #000; color: #fff; border: none; border-radius: 5px;">Calculate</button>
-   </div>
-   <p id="result" style="display: none; font-size: 28px; color: #000; margin-top: 20px;">Estimated Revenue: $<span id="amount" style="font-weight: bold;">0.00</span></p>
-   <div id="resetDiv" style="display: none; margin-top: 20px;">
-       <button id="resetButton" style="width: 200px; height: 40px; font-size: 16px; background-color: #000; color: #fff; border: none; border-radius: 5px;">Do Another Calculation</button>
-   </div>
-</div>
+        .gray-section {
+            background-color: #eee;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #000;
+        }
 
-<script>
-   document.getElementById("calculateButton").addEventListener("click", function () {
-       // Get the user input value
-       var userInput = parseFloat(document.getElementById("userInput").value);
+        .black-section {
+            background-color: #000;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
 
-       // Perform the multiplication by 6.14
-       var result = userInput * 6.14;
+        .container {
+            text-align: center;
+        }
 
-       // Hide the input box and calculate button
-       document.getElementById("calculatorContainer").style.display = "none";
+        .input-box {
+            width: 33.33%;
+            text-align: center;
+            display: inline-block;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            margin-bottom: 10px;
+        }
 
-       // Display the result with a dollar sign
-       var resultElement = document.getElementById("result");
-       resultElement.style.display = "block";
-       resultElement.querySelector("#amount").textContent = result.toFixed(2);
+        .output-box {
+            width: 33.33%;
+            text-align: center;
+            display: inline-block;
+            vertical-align: top;
+        }
 
-       // Show the "Do Another Calculation" button
-       var resetDiv = document.getElementById("resetDiv");
-       resetDiv.style.display = "block";
-   });
+        .result {
+            font-size: 28px;
+            color: #000;
+            margin-top: 20px;
+        }
 
-   // Function to reset the calculator
-   document.getElementById("resetButton").addEventListener("click", function () {
-       // Show the input box and calculate button
-       document.getElementById("calculatorContainer").style.display = "block";
+        .conversion-rate {
+            font-size: 16px;
+            color: #000;
+            margin-top: 10px;
+        }
 
-       // Hide the result and "Do Another Calculation" button
-       document.getElementById("result").style.display = "none";
-       document.getElementById("resetDiv").style.display = "none";
+        /* Updated CSS for the sub-output class */
+        .sub-output {
+            width: 32%; /* Updated width */
+            text-align: center;
+            display: inline-block;
+            vertical-align: top;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            margin: 10px 1%; /* Added margin for spacing */
+            color: #000; /* Changed text color to black */
+        }
 
-       // Clear the input field
-       document.getElementById("userInput").value = "";
+        .sub-output-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 5px;
+        }
 
-       // Focus on the input field
-       document.getElementById("userInput").focus();
-   });
-</script>
+        .reset-button {
+            width: 150px;
+            height: 50px;
+            font-size: 16px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            float: right;
+        }
+
+        /* Added margin for spacing between sections */
+        .section-spacing {
+            margin-top: 20px;
+        }
+
+        /* Updated CSS for the slider and label */
+        .slider-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .slider-label {
+            font-size: 16px;
+        }
+
+        .slider {
+            width: 80%;
+        }
+
+        /* Added spacing for user input */
+        .user-input-spacing {
+            margin-right: 40px;
+        }
+
+        /* Updated CSS for the bubble */
+        .bubble {
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Revenue Share Calculator</h1>
+    </div>
+
+    <div class="gray-section">
+        <div class="container">
+            <div class="input-box user-input-spacing">
+                <p>Yearly visitors</p>
+                <input type="number" id="userInput" placeholder="Enter the number of visitors"
+                    style="width: 300px; height: 50px; font-size: 18px; border: 2px solid #000; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
+                <br>
+                <div class="slider-container">
+                    <label class="slider-label">Conversion Rate: <span id="conversionRateLabel">20%</span></label>
+                    <input type="range" id="conversionRateSlider" min="1" max="100" value="20" class="slider"
+                        oninput="updateConversionRateLabel(this.value)">
+                </div>
+                <br>
+                <button id="calculateButton"
+                    style="width: 150px; height: 50px; font-size: 18px; background-color: #000; color: #fff; border: none; border-radius: 5px;">Calculate</button>
+            </div>
+
+            <div class="output-box">
+                <div class="result section-spacing">
+                    New Simplicity users:
+                    <div id="output" class="result" style="border: 1px solid #000; padding: 10px; margin: 10px 0;"></div>
+                </div>
+                <div class="conversion-rate section-spacing" id="conversionRateText">20% conversion rate</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="black-section">
+        <div class="container">
+            <div class="sub-output">
+                <div class="sub-output-title">Tourist Attraction Tickets Revenue</div>
+                <div id="attractionOutput"></div>
+            </div>
+            <div class="sub-output">
+                <div class="sub-output-title">Tickets Games Concerts Revenue</div>
+                <div id="gamesOutput"></div>
+            </div>
+            <div class="sub-output">
+                <div class="sub-output-title">Car Rental Revenue</div>
+                <div id="carRentalOutput"></div>
+            </div>
+            <div class="sub-output">
+                <div class="sub-output-title">E-Sims Revenue</div>
+                <div id="eSimsOutput"></div>
+            </div>
+            <div class="sub-output">
+                <div class="sub-output-title">Travel Insurance Revenue</div>
+                <div id="insuranceOutput"></div>
+            </div>
+            <div class="sub-output">
+                <div class="sub-output-title">Accommodation & Hotel Revenue</div>
+                <div id="hotelOutput"></div>
+            </div>
+            <!-- Updated bubble size -->
+            <div class="sub-output section-spacing">
+                <p>The revenue is a <span id="profitCutPercentage">40%</span> cut from our profits</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="gray-section">
+        <div class="container">
+            <div class="result">
+                Total Revenue: <span id="totalRevenue" style="font-weight: bold;"></span>
+            </div>
+            <button id="resetButton" class="reset-button">Do Another Calculation</button>
+        </div>
+    </div>
+
+    <div class="black-section">
+        <footer>
+            <p>&copy; 2023 Revenue Share Calculator</p>
+        </footer>
+    </div>
+
+    <script>
+        // Function to update the conversion rate label
+        function updateConversionRateLabel(sliderValue) {
+            const conversionRateLabel = document.getElementById("conversionRateLabel");
+            const conversionRateText = document.getElementById("conversionRateText");
+            conversionRateLabel.textContent = sliderValue + "%";
+            conversionRateText.textContent = "Conversion Rate: " + sliderValue + "%";
+        }
+
+        document.getElementById("calculateButton").addEventListener("click", function () {
+            // Get the user input value
+            var userInput = parseFloat(document.getElementById("userInput").value);
+
+            // Get the conversion rate from the slider
+            var conversionRate = parseFloat(document.getElementById("conversionRateSlider").value);
+
+            // Perform the calculation
+            var roundedResult = Math.round((userInput / 100) * conversionRate); /* Rounded to the nearest whole number */
+            var result = (userInput / 100) * conversionRate;
+
+            // Display the rounded result
+            document.getElementById("output").textContent = roundedResult;
+
+            // Calculate sub-output values
+            var attractionRevenue = result * 1.85;
+            document.getElementById("attractionOutput").textContent = "$" + attractionRevenue.toFixed(2);
+
+            var gamesRevenue = result * 0.08;
+            document.getElementById("gamesOutput").textContent = "$" + gamesRevenue.toFixed(2);
+
+            var carRentalRevenue = result * 0.8;
+            document.getElementById("carRentalOutput").textContent = "$" + carRentalRevenue.toFixed(2);
+
+            var eSimsRevenue = result * 0.07;
+            document.getElementById("eSimsOutput").textContent = "$" + eSimsRevenue.toFixed(2);
+
+            var insuranceRevenue = result * 0.36;
+            document.getElementById("insuranceOutput").textContent = "$" + insuranceRevenue.toFixed(2);
+
+            var hotelRevenue = result * 2.98;
+            document.getElementById("hotelOutput").textContent = "$" + hotelRevenue.toFixed(2);
+
+            // Calculate total revenue
+            var totalRevenue = attractionRevenue + gamesRevenue + carRentalRevenue + eSimsRevenue + insuranceRevenue + hotelRevenue;
+            document.getElementById("totalRevenue").textContent = "$" + totalRevenue.toFixed(2);
+
+            // Show the "Do Another Calculation" button
+            document.getElementById("resetButton").style.display = "block";
+        });
+
+        // Function to reset the calculator
+        document.getElementById("resetButton").addEventListener("click", function () {
+            // Reset input
+            document.getElementById("userInput").value = "";
+            document.getElementById("output").textContent = "";
+
+            // Reset slider
+            document.getElementById("conversionRateSlider").value = "20";
+            updateConversionRateLabel("20");
+
+            // Reset sub-outputs
+            document.getElementById("attractionOutput").textContent = "";
+            document.getElementById("gamesOutput").textContent = "";
+            document.getElementById("carRentalOutput").textContent = "";
+            document.getElementById("eSimsOutput").textContent = "";
+            document.getElementById("insuranceOutput").textContent = "";
+            document.getElementById("hotelOutput").textContent = "";
+
+            // Reset total revenue
+            document.getElementById("totalRevenue").textContent = "";
+
+            // Hide the "Do Another Calculation" button
+            document.getElementById("resetButton").style.display = "none";
+        });
+    </script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
