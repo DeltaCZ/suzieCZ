@@ -143,18 +143,18 @@
 <body>
 
     <div class="header">
-        <h1>Revenue Share Calculator</h1>
+        <h1>Your Revenue Share Calculator</h1>
     </div>
 
     <div class="gray-section">
         <div class="container">
             <div class="input-box user-input-spacing">
-                <p>Yearly visitors</p>
+                <p>Your Yearly visitors</p>
                 <input type="number" id="userInput" placeholder="Enter the number of visitors"
                     style="width: 300px; height: 50px; font-size: 18px; border: 2px solid #000; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
                 <br>
                 <div class="slider-container">
-                    <label class="slider-label">Conversion Rate: <span id="conversionRateLabel">20%</span></label>
+                    <label class="slider-label">Conversion Rate to Simplicity Users: <span id="conversionRateLabel">20%</span></label>
                     <input type="range" id="conversionRateSlider" min="1" max="100" value="20" class="slider"
                         oninput="updateConversionRateLabel(this.value)">
                 </div>
@@ -209,7 +209,7 @@
     <div class="gray-section">
         <div class="container">
             <div class="result">
-                Total Revenue: <span id="totalRevenue" style="font-weight: bold;"></span>
+                Your Total Revenue: <span id="totalRevenue" style="font-weight: bold;"></span>
             </div>
             <button id="resetButton" class="reset-button">Do Another Calculation</button>
         </div>
@@ -217,7 +217,7 @@
 
     <div class="black-section">
         <footer>
-            <p>&copy; 2023 Revenue Share Calculator</p>
+            <p>&copy; 2023 Simplicity Revenue Share Calculator</p>
         </footer>
     </div>
 
