@@ -201,7 +201,7 @@
             </div>
             <!-- Updated bubble size -->
             <div class="sub-output section-spacing">
-                <p>The revenue is a <span id="profitCutPercentage">40%</span> cut from our profits</p>
+                <p>The revenue is a <span id="profitCutPercentage">25%</span> cut from our profits</p>
             </div>
         </div>
     </div>
@@ -245,22 +245,22 @@
             document.getElementById("output").textContent = roundedResult;
 
             // Calculate sub-output values
-            var attractionRevenue = result * 1.85;
+            var attractionRevenue = result * 1.155;
             document.getElementById("attractionOutput").textContent = "$" + attractionRevenue.toFixed(2);
 
-            var gamesRevenue = result * 0.08;
+            var gamesRevenue = result * 0.0475;
             document.getElementById("gamesOutput").textContent = "$" + gamesRevenue.toFixed(2);
 
-            var carRentalRevenue = result * 0.8;
+            var carRentalRevenue = result * 0.5;
             document.getElementById("carRentalOutput").textContent = "$" + carRentalRevenue.toFixed(2);
 
-            var eSimsRevenue = result * 0.07;
+            var eSimsRevenue = result * 0.045;
             document.getElementById("eSimsOutput").textContent = "$" + eSimsRevenue.toFixed(2);
 
-            var insuranceRevenue = result * 0.36;
+            var insuranceRevenue = result * 0.225;
             document.getElementById("insuranceOutput").textContent = "$" + insuranceRevenue.toFixed(2);
 
-            var hotelRevenue = result * 2.98;
+            var hotelRevenue = result * 1.865;
             document.getElementById("hotelOutput").textContent = "$" + hotelRevenue.toFixed(2);
 
             // Calculate total revenue
